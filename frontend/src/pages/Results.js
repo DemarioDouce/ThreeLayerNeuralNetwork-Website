@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
+import { Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const Results = (props) => {
@@ -9,7 +9,7 @@ const Results = (props) => {
   const { sepalwidth, petallength, petalwidth, epoch, lr } =
     (props.location && props.location.state) || {};
   console.log(lr);
-  const apiUrl = "http://localhost:3000/run";
+  const apiUrl = "http://localhost:5000/run";
   //runs once after the first rendering of page
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +18,7 @@ const Results = (props) => {
         .then((result) => {
           console.log("result.data:", result.data);
           setData(result.data);
+          console.log(result.data);
           setShowLoading(false);
         })
         .catch((error) => {
@@ -31,12 +32,7 @@ const Results = (props) => {
       {showLoading === false ? (
         <div>
                       
-          {showLoading && (
-            <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                          
-            </Spinner>
-          )}
+          {showLoading && <Spinner animation="border" role="status"></Spinner>}
                                      <h1>Prediction Results</h1>
                       <h2> the values for species will be:</h2>
                       <li>setosa: 1,0,0</li>              

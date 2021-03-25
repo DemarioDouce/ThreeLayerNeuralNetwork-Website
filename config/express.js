@@ -8,6 +8,7 @@ const compress = require("compression");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const cors = require("cors");
 
 // Define the Express configuration method
 module.exports = function () {
@@ -35,6 +36,8 @@ module.exports = function () {
       secret: config.sessionSecret,
     })
   ); // Set the application view engine and 'views' folder
+
+  app.use(cors());
 
   app.set("views", "./app/views");
   app.set("view engine", "ejs");
