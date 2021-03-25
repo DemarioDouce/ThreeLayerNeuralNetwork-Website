@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Container, ListGroup } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const Results = (props) => {
@@ -21,9 +21,7 @@ const Results = (props) => {
       axios
         .get(apiUrl)
         .then((result) => {
-          console.log("result.data:", result.data);
           setData(result.data);
-          console.log(result.data);
           setShowLoading(false);
         })
         .catch((error) => {
@@ -33,85 +31,74 @@ const Results = (props) => {
     fetchData();
   }, []);
   return (
-    <div>
-      {showLoading === false ? (
-        <div>
-                      
-          {showLoading && <Spinner animation="border" role="status"></Spinner>}
-                                     <h1>Prediction Results</h1>
-                      <h2> the values for species will be:</h2>
-                      <li>setosa: 1,0,0</li>              
-          <li>virginica: 0,1,0</li>
-                      <li>versicolor: 0,0,1 </li>
-                      
-          <table className="App-table">
-                          
-            <thead>
-                              
-              <tr>
-                                  <th>Test 1</th>
-                                  <th>Test 2</th>
-                                  <th>Test 3</th>
-                                
-              </tr>
-                            
-            </thead>
-                                         
-            <tbody>
-                                               
-              <tr>
-                                  
-                <td className="App-td">
-                                      
-                  {data.row1.map((value, index) => (
-                    <p key={index}>{value}</p>
-                  ))}
-                                    
-                </td>
-                                  
-                <td className="App-td">
-                                    
-                  {data.row2.map((value, index) => (
-                    <p key={index}>{value}</p>
-                  ))}
-                                    
-                </td>
-                                  
-                <td className="App-td">
-                                    
-                  {data.row3.map((value, index) => (
-                    <p key={index}>{value}</p>
-                  ))}
-                                    
-                </td>
-                                
-              </tr>
-                            
-            </tbody>
-                        
-          </table>
+    <>
+      <Container>
+        <div className="text-center">
           <div>
-            <NavLink to="/" activeClassName="active">
-              Go Back
-            </NavLink>
+            {showLoading === false ? (
+              <div className="text-center">
+                            
+                {showLoading && (
+                  <Spinner animation="border" role="status"></Spinner>
+                )}
+                <h1>PREDICTION RESULTS</h1>
+                <ul style={{ listStyleType: "none" }}>
+                  <li>sepal length: {sepalLength} </li>
+                  <li>sepal width: {sepalWidth}</li>
+                  <li>petal length: {petalLength}</li>
+                  <li>petal width: {petalWidth}</li>
+                  <li>epoch: {epoch}</li>
+                  <li>learning rate: {learningRate}</li>
+                </ul>
+                <p>
+                  <b>#setosa = 1,0,0</b> <b>#virginica = 0,1,0 </b>
+                  <b>#versicolor = 0,0,1 </b>
+                </p>
+                <ListGroup>
+                  {data.row1.map((item, idx) => (
+                    <ListGroup.Item
+                      style={{
+                        width: "100%",
+                        padding: "12px 20px",
+                        margin: "8px 0",
+                        display: "inline-block",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px",
+                        boxSizing: "border-box",
+                      }}
+                      key={idx}
+                    >
+                      {item}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+                            
+                <div className="text-center">
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    to="/"
+                    activeClassName="active"
+                  >
+                    GO BACK
+                  </NavLink>
+                </div>
+                                         
+              </div>
+            ) : (
+              <div>
+                          
+                {showLoading && (
+                  <Spinner animation="border" role="status"></Spinner>
+                )}
+                        
+              </div>
+            )}
+               
           </div>
-                                   
         </div>
-      ) : (
-        <div>
-                    
-          {showLoading && (
-            <Spinner animation="border" role="status">
-                          
-              <span className="sr-only">Waiting for results...</span>
-                        
-            </Spinner>
-          )}
-                  
-        </div>
-      )}
-          
-    </div>
+         
+      </Container>
+    </>
   );
 };
 export default Results;

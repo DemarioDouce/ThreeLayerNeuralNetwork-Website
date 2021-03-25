@@ -7,7 +7,14 @@ const irisTesting = require("../../iris-testing.json");
 var lossValue;
 //
 exports.trainAndPredict = function (req, res) {
-  console.log(irisTesting);
+  let userParameters = [
+    {
+      sepal_length: 1.0,
+      sepal_width: 1.0,
+      petal_length: 1.0,
+      petal_width: 1.0,
+    },
+  ];
 
   //
   // convert/setup our data for tensorflow.js
@@ -32,7 +39,7 @@ exports.trainAndPredict = function (req, res) {
   //
   //tensor of features for testing data
   const testingData = tf.tensor2d(
-    irisTesting.map((item) => [
+    userParameters.map((item) => [
       item.sepal_length,
       item.sepal_width,
       item.petal_length,
@@ -72,27 +79,22 @@ exports.trainAndPredict = function (req, res) {
     optimizer: tf.train.adam(0.06),
   });
 
-  console.log(model.summary());
-
   //train the model and predic
 
   async function run() {
     const startTime = Date.now();
     await model.fit(trainingData, outputData, {
-      epochs: 100,
+      epochs: 1,
       callbacks: {
         onEpochEnd: async (epoch, log) => {
           lossValue = log.loss;
-          console.log("epoch ${epoch}; lossValue = ${log.loss}");
           elapsedTime = Date.now() - startTime;
-          console.log("elapsed time: " + elapsedTime);
         },
       },
     });
     const results = model.predict(testingData);
 
     results.array().then((array) => {
-      console.log(array[0][0]);
       var resultForData1 = array[0];
       var resultForData2 = array[1];
       var resultForData3 = array[2];
@@ -101,7 +103,7 @@ exports.trainAndPredict = function (req, res) {
         row2: resultForData2,
         row3: resultForData3,
       };
-      console.log(resultForData1);
+
       res.status(200).send(dataToSend);
       /*
       res.render("results", {

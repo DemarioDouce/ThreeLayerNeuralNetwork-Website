@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Spinner } from "react-bootstrap";
-
+import axios from "axios";
 const ParametersForm = (props) => {
   const [state, setState] = useState({
     sepalLength: "",
@@ -18,10 +18,27 @@ const ParametersForm = (props) => {
   const handleOnSubmit = (event) => {
     setShowLoading(true);
     event.preventDefault();
-    props.history.push({
-      pathname: "/results",
-      state,
-    });
+    //
+    const data = {
+      sepalLength: state.sepalLength,
+      sepalWidth: state.sepalWidth,
+      petalLength: state.petalLength,
+      petalWidth: state.petalWidth,
+      epoch: state.epoch,
+      learningRate: state.learningRate,
+    };
+    console.log(data);
+    axios
+      .post(apiUrl, data)
+      .then((result) => {
+        setShowLoading(false);
+        console.log(result.data);
+        props.history.push({
+          pathname: "/results",
+          state,
+        });
+      })
+      .catch((error) => setShowLoading(false));
   };
 
   const onChange = (e) => {
