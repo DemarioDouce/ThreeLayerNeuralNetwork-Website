@@ -6,9 +6,14 @@ import { NavLink } from "react-router-dom";
 const Results = (props) => {
   const [data, setData] = useState({});
   const [showLoading, setShowLoading] = useState(true);
-  const { sepalwidth, petallength, petalwidth, epoch, lr } =
-    (props.location && props.location.state) || {};
-  console.log(lr);
+  const {
+    sepalLength,
+    sepalWidth,
+    petalLength,
+    petalWidth,
+    epoch,
+    learningRate,
+  } = (props.location && props.location.state) || {};
   const apiUrl = "http://localhost:5000/run";
   //runs once after the first rendering of page
   useEffect(() => {
