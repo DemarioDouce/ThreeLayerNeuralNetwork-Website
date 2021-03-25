@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Results from "./components/Results";
-import ParametersForm from "./components/ParametersForm";
+import Results from "./pages/Results";
+import ParametersForm from "./pages/ParametersForm";
 
 const App = () => (
   <BrowserRouter>
