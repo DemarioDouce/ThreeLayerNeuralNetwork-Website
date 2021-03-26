@@ -8,7 +8,7 @@ const App = () => (
     <div className="container">
       <Switch>
         <Route component={ParametersForm} path="/" exact={true} />
-        <Route component={Results} path="/results" />
+        <Route component={Results} path="/results/:seplength/:sepwidth/:petlength/:petwidth/:epoch/:learnin" />
       </Switch>
     </div>
   </BrowserRouter>

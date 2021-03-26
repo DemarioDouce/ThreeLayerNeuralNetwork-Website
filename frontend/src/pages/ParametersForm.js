@@ -34,7 +34,7 @@ const ParametersForm = (props) => {
         setShowLoading(false);
         console.log(result.data);
         props.history.push({
-          pathname: "/results",
+          pathname: "/results"+"/"+data.sepalLength+"/"+data.sepalWidth+"/"+data.petalLength+"/"+data.petalWidth+"/"+data.epoch+"/"+data.learningRate,
           state,
         });
       })

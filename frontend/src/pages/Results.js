@@ -15,11 +15,19 @@ const Results = (props) => {
     learningRate,
   } = (props.location && props.location.state) || {};
   const apiUrl = "http://localhost:5000/run";
+  const dataa = {
+    sepalLength: parseFloat(props.match.params.sepalLength),
+    sepalWidth: parseFloat(props.match.params.sepalWidth),
+    petalLength: parseFloat(props.match.params.petalLength),
+    petalWidth: parseFloat(props.match.params.petalWidth),
+    epoch: parseInt(props.match.params.epoch),
+    learningRate: parseFloat(props.match.params.learningRate),
+  };
   //runs once after the first rendering of page
   useEffect(() => {
     const fetchData = async () => {
       axios
-        .get(apiUrl)
+        .post(apiUrl,dataa)
         .then((result) => {
           setData(result.data);
           setShowLoading(false);
