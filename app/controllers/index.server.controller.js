@@ -70,7 +70,7 @@ exports.trainAndPredict = function (req, res) {
   //compile the model with an MSE loss function and Adam algorithm
   model.compile({
     loss: "meanSquaredError",
-    optimizer: tf.train.adam(0.06),
+    optimizer: tf.train.adam(req.body.learningRate),
   });
 
   //train the model and predic
