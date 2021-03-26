@@ -1,5 +1,7 @@
 # Three Layer Neural Network
+
 ---
+
 ## Screenshot
 
-## ![Mockup image.](/Mockups/MockupStudentCourseSystem.png)
+## ![Mockup image.](/Mockups/MockupThreeLayerNeuralNetwork.png)
