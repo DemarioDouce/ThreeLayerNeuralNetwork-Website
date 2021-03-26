@@ -11,7 +11,7 @@ const ParametersForm = (props) => {
     learningRate: "",
   });
   //
-  const apiUrl = "http://localhost:5000/parameters";
+  const apiUrl = "http://localhost:5000/run";
   //
   const [showLoading, setShowLoading] = useState(false);
 
@@ -20,12 +20,12 @@ const ParametersForm = (props) => {
     event.preventDefault();
     //
     const data = {
-      sepalLength: state.sepalLength,
-      sepalWidth: state.sepalWidth,
-      petalLength: state.petalLength,
-      petalWidth: state.petalWidth,
-      epoch: state.epoch,
-      learningRate: state.learningRate,
+      sepalLength: parseFloat(state.sepalLength),
+      sepalWidth: parseFloat(state.sepalWidth),
+      petalLength: parseFloat(state.petalLength),
+      petalWidth: parseFloat(state.petalWidth),
+      epoch: parseInt(state.epoch),
+      learningRate: parseFloat(state.learningRate),
     };
     console.log(data);
     axios
@@ -85,6 +85,7 @@ const ParametersForm = (props) => {
                   placeholder="Enter Sepal Length (ex 0.1)"
                   value={state.sepalLength}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
               {/* */}
@@ -106,6 +107,7 @@ const ParametersForm = (props) => {
                   placeholder="Enter Sepal Width (ex 0.1)"
                   value={state.sepalWidth}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
               {/* */}
@@ -127,6 +129,7 @@ const ParametersForm = (props) => {
                   placeholder="Enter Petal Length (ex 0.1)"
                   value={state.petalLength}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
               {/* */}
@@ -148,6 +151,7 @@ const ParametersForm = (props) => {
                   placeholder="Enter Petal Width (ex 0.1)"
                   value={state.petalWidth}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
               {/* */}
@@ -169,6 +173,7 @@ const ParametersForm = (props) => {
                   placeholder="Enter Epoch (ex 100)"
                   value={state.epoch}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
               {/* */}
@@ -190,6 +195,7 @@ const ParametersForm = (props) => {
                   placeholder="Enter Learning Rate (ex 0.01)"
                   value={state.learningRate}
                   onChange={onChange}
+                  required
                 />
               </Form.Group>
               <Button

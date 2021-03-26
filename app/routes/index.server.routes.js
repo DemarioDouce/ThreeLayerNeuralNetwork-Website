@@ -5,6 +5,5 @@ module.exports = function (app) {
       info: "see the results in console window",
     });
   });
-  app.get("/run", index.trainAndPredict);
-  app.post("/parameters", index.trainAndPredict);
+  app.route("/run").get(index.trainAndPredict).post(index.trainAndPredict);
 };

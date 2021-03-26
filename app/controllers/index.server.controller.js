@@ -7,15 +7,6 @@ const irisTesting = require("../../iris-testing.json");
 var lossValue;
 //
 exports.trainAndPredict = function (req, res) {
-  let userParameters = [
-    {
-      sepal_length: 1.0,
-      sepal_width: 1.0,
-      petal_length: 1.0,
-      petal_width: 1.0,
-    },
-  ];
-
   //
   // convert/setup our data for tensorflow.js
   //
@@ -38,15 +29,8 @@ exports.trainAndPredict = function (req, res) {
   );
   //
   //tensor of features for testing data
-  const testingData = tf.tensor2d(
-    userParameters.map((item) => [
-      item.sepal_length,
-      item.sepal_width,
-      item.petal_length,
-      item.petal_width,
-    ])
-  );
-
+  const testingData = tf.tensor2d([[1, 2, 3, 3]]);
+  console.log(req.body.petalLength);
   // build neural network using a sequential model
   const model = tf.sequential();
   //add the first layer
@@ -84,7 +68,7 @@ exports.trainAndPredict = function (req, res) {
   async function run() {
     const startTime = Date.now();
     await model.fit(trainingData, outputData, {
-      epochs: 1,
+      epochs: req.body.epoch,
       callbacks: {
         onEpochEnd: async (epoch, log) => {
           lossValue = log.loss;
