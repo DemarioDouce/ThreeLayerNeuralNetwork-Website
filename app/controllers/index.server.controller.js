@@ -7,11 +7,6 @@ const irisTesting = require("../../iris-testing.json");
 var lossValue;
 //
 exports.trainAndPredict = function (req, res) {
-  let sepalLength = req.body.sepalLength;
-  let sepalWidth = req.body.petalLength;
-  let petalLength = req.body.petalLength;
-  let petalWidth = req.body.petalLength;
-  console.log("petla - " + petalLength);
   //
   // convert/setup our data for tensorflow.js
   //
@@ -32,13 +27,15 @@ exports.trainAndPredict = function (req, res) {
       item.species === "versicolor" ? 1 : 0,
     ])
   );
-  console.log(req.body);
-  console.log("ffffff");
-  console.log("petla - " + petalLength);
   //
   //tensor of features for testing data
   const testingData = tf.tensor2d([
-    [sepalLength, sepalWidth, petalLength, petalWidth],
+    [
+      req.body.sepalLength,
+      req.body.sepalWidth,
+      req.body.petalLength,
+      req.body.petalWidth,
+    ],
   ]);
   //console.log(req.body);
   // build neural network using a sequential model
